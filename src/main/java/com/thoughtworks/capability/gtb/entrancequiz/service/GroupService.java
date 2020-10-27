@@ -4,15 +4,20 @@ import com.thoughtworks.capability.gtb.entrancequiz.dto.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class GroupService {
     private List<Student> students;
+    private List<Student> oldStudents;
+    private boolean hasNewStudent;
 
     public GroupService() {
         students = new ArrayList<>();
+        hasNewStudent = false;
         initialization();
+        oldStudents = new ArrayList<>(students);
     }
 
     private void initialization() {
@@ -50,10 +55,20 @@ public class GroupService {
     }
 
     public List<Student> getAllStudents() {
-        return this.students;
+        return this.oldStudents;
+    }
+
+    public List<Student> groupStudents() {
+        Collections.shuffle(oldStudents);
+        return oldStudents;
     }
 
     public void add(Student student) {
+        if (!hasNewStudent) {
+            hasNewStudent = true;
+        }
+        student.setId(students.size() + 1);
         students.add(student);
     }
+
 }

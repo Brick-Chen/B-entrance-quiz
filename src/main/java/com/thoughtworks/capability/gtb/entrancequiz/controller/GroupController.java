@@ -26,4 +26,9 @@ public class GroupController {
         groupService.add(student);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/group-students")
+    public ResponseEntity<List<Student>> groupStudents() {
+        return ResponseEntity.ok(groupService.groupStudents());
+    }
 }
