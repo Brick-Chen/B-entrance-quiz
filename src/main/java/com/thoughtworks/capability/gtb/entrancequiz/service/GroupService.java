@@ -55,7 +55,7 @@ public class GroupService {
     }
 
     public List<Student> getAllStudents() {
-        return this.oldStudents;
+        return this.students;
     }
 
     public List<Student> groupStudents() {
