@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class GroupService {
+    private static final int GROUP_NUMBER = 6;
     private List<Student> students;
     private List<Student> oldStudents;
     private boolean hasNewStudent;
@@ -58,9 +59,9 @@ public class GroupService {
         return this.students;
     }
 
-    public List<Student> groupStudents() {
+    public List<List<Student>> groupStudents() {
         Collections.shuffle(oldStudents);
-        return oldStudents;
+        return group(oldStudents);
     }
 
     public void add(Student student) {
@@ -69,6 +70,25 @@ public class GroupService {
         }
         student.setId(students.size() + 1);
         students.add(student);
+    }
+
+    private List<List<Student>> group(List<Student> members) {
+        List<List<Student>> res = new ArrayList<>();
+        int num = members.size() / GROUP_NUMBER;
+        int remain = members.size() % GROUP_NUMBER;
+
+        for(int i = 0; i < num * GROUP_NUMBER; i += num) {
+            List<Student> group = new ArrayList<>(members.subList(i, i + num));
+            group.sort((o1, o2) -> o1.getId() - o2.getId());
+            res.add(group);
+        }
+
+        for(int i = 0; i < remain; ++i) {
+            res.get(i).add(members.get(num * GROUP_NUMBER + i));
+            res.get(i).sort((o1, o2) -> o1.getId() - o2.getId());
+        }
+
+        return res;
     }
 
 }
