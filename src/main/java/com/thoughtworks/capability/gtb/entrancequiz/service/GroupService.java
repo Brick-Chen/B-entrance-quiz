@@ -10,7 +10,9 @@ import java.util.List;
 @Service
 public class GroupService {
     private List<Student> students;
+    //TODO GTB-工程实践: - oldStudents 的作用是啥？
     private List<Student> oldStudents;
+    //TODO GTB-工程实践: - 这个 hasNewStudent 的作用是啥？
     private boolean hasNewStudent;
 
     public GroupService() {
